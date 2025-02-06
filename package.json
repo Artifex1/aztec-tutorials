@@ -1,0 +1,23 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@aztec/accounts": "0.75.0",
+    "@aztec/aztec.js": "0.75.0",
+    "@aztec/noir-contracts.js": "0.75.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^5.0.1",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.12.0",
+    "chai": "^5.1.2",
+    "mocha": "^11.1.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.3.3"
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610",
+  "scripts": {
+    "test": "NODE_OPTIONS='--import tsx --no-warnings' mocha './contracts/**/test/**/*.test.ts'"
+  },
+  "license": "MIT"
+}

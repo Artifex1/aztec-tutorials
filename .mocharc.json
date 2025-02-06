@@ -1,0 +1,6 @@
+{
+    "loader": "tsx",
+    "experimental-specifier-resolution": "node",
+    "extensions": [".ts"],
+    "node-option": ["experimental-specifier-resolution=node"]
+}
