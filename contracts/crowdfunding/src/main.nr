@@ -110,7 +110,7 @@ unconstrained fn test_donate() {
     let init_token = Token::interface().constructor(
         admin, name, symbol, 18
     );
-    let token_instance = env.deploy("Token").with_public_void_initializer(init_token);
+    let token_instance = env.deploy("./@token_contract", "Token").with_public_void_initializer(init_token);
     /*
     let token_address = token_instance.to_address();
     // deploy crowdfunding
