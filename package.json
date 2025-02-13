@@ -1,9 +1,9 @@
 {
   "type": "module",
   "dependencies": {
-    "@aztec/accounts": "0.75.0",
-    "@aztec/aztec.js": "0.75.0",
-    "@aztec/noir-contracts.js": "0.75.0"
+    "@aztec/accounts": "0.76.3",
+    "@aztec/aztec.js": "0.76.3",
+    "@aztec/noir-contracts.js": "0.76.3"
   },
   "devDependencies": {
     "@types/chai": "^5.0.1",
@@ -17,6 +17,10 @@
   },
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610",
   "scripts": {
+    "compile": "aztec-nargo compile && yarn compile-deploy-artifacts && yarn copy-deploy-artifacts",
+    "compile-deploy-artifacts": "cd ~/nargo/github.com/AztecProtocol/aztec-packages/aztec-packages-v0.76.3/noir-projects/noir-contracts && aztec-nargo compile --package token_contract",
+    "copy-deploy-artifacts": "cp ~/nargo/github.com/AztecProtocol/aztec-packages/aztec-packages-v0.76.3/noir-projects/noir-contracts/target/token_contract-Token.json ./target/token_contract-Token.json",
+    "test crowdfunding": "aztec test --package crowdfunding",
     "test": "NODE_OPTIONS='--import tsx --no-warnings' mocha './contracts/**/test/**/*.test.ts'"
   },
   "license": "MIT"

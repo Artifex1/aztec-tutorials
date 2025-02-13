@@ -3,7 +3,7 @@ use dep::aztec::macros::aztec;
 #[aztec]
 contract Crowdfunding {
     use dep::aztec::{
-        encrypted_logs::encrypted_note_emission::encode_and_encrypt_note,
+        encrypted_logs::log_assembly_strategies::default_aes128::note::encode_and_encrypt_note,
         macros::{
             events::event,
             functions::{initializer, internal, private, public},
@@ -93,42 +93,42 @@ contract Crowdfunding {
         WithdrawalProcessed { amount, who: to }.emit(encode_event(&mut context));
     }
 
-}
 
-use token::Token;
-use dep::aztec::test::helpers::test_environment::TestEnvironment;
-use dep::aztec::prelude::AztecAddress;
 
-#[test]
-unconstrained fn test_donate() {
-    let mut env = TestEnvironment::new();
-    let admin = env.create_account();
-    
-    // deploy token
-    let name: str<31>   = "Test000000000000000000000000000";
-    let symbol: str<31> = "TST0000000000000000000000000000";
-    let init_token = Token::interface().constructor(
-        admin, name, symbol, 18
-    );
-    let token_instance = env.deploy("./@token_contract", "Token").with_public_void_initializer(init_token);
-    /*
-    let token_address = token_instance.to_address();
-    // deploy crowdfunding
-    let init_crowdfunding = Crowdfunding::interface().init(
-        token_address, admin, 1337
-    );
-    let cf_instance = env.deploy_self("Crowdfunding").with_public_void_initializer(init_crowdfunding);
-    let cf_address = cf_instance.to_address();
+    use dep::aztec::test::helpers::test_environment::TestEnvironment;
 
-    (env, token_address, cf_address, admin) */
-    /*
-    let (mut env, token, crowdfunding, admin) = setup();
-    let donor = env.create_account();
+    #[test]
+    unconstrained fn test_donate() {
+        let mut env = TestEnvironment::new();
+        let admin = env.create_account(1);
+        
+        // deploy token
+        let name: str<31>   = "Test000000000000000000000000000";
+        let symbol: str<31> = "TST0000000000000000000000000000";
+        let init_token = Token::interface().constructor(
+            admin, name, symbol, 18
+        );
+        let token_instance = env.deploy("./@token_contract", "Token").with_public_void_initializer(init_token);
+        /*
+        let token_address = token_instance.to_address();
+        // deploy crowdfunding
+        let init_crowdfunding = Crowdfunding::interface().init(
+            token_address, admin, 1337
+        );
+        let cf_instance = env.deploy_self("Crowdfunding").with_public_void_initializer(init_crowdfunding);
+        let cf_address = cf_instance.to_address();
 
-    env.impersonate(admin);
-    Token::at(token).mint_to_public(donor, U128::from_integer(50)).call(&mut env.public());
+        (env, token_address, cf_address, admin) */
+        /*
+        let (mut env, token, crowdfunding, admin) = setup();
+        let donor = env.create_account();
 
-    env.impersonate(donor);
-    Crowdfunding::at(crowdfunding).donate(U128::from_integer(25)).call(&mut env.private());
-    */
+        env.impersonate(admin);
+        Token::at(token).mint_to_public(donor, U128::from_integer(50)).call(&mut env.public());
+
+        env.impersonate(donor);
+        Crowdfunding::at(crowdfunding).donate(U128::from_integer(25)).call(&mut env.private());
+        */
+    }
+
 }
