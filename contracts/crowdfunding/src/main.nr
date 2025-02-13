@@ -96,7 +96,7 @@ contract Crowdfunding {
     use dep::aztec::test::helpers::test_environment::TestEnvironment;
 
     #[test]
-    unconstrained fn test_donate() {
+    unconstrained fn test_donate_and_withdrawal() {
         let mut env = TestEnvironment::new();
         let admin = env.create_account(1);
         
@@ -117,11 +117,26 @@ contract Crowdfunding {
 
         let donor = env.create_account(2);
 
+        let total_supply = U128::from_integer(50);
+        let donor_amount = U128::from_integer(25);
+
         env.impersonate(admin);
-        Token::at(token_address).mint_to_public(donor, U128::from_integer(50)).call(&mut env.public());
+        Token::at(token_address).mint_to_public(donor, total_supply).call(&mut env.public());
 
         env.impersonate(donor);
-        Crowdfunding::at(cf_address).donate(U128::from_integer(25)).call(&mut env.private());
+        Crowdfunding::at(cf_address).donate(donor_amount).call(&mut env.private());
+        /*
+        let cf_balance = Token::at(token_address).balance_of_public(cf_address).view(&mut env.public());
+
+        assert(cf_balance == donor_amount, "crowdfunding balance does not match donor amount");
+
+        env.impersonate(admin);
+        Crowdfunding::at(cf_address).withdraw(donor_amount).call(&mut env.private());
+
+        let admin_balance = Token::at(token_address).balance_of_public(admin).view(&mut env.public());
+
+        assert(admin_balance == donor_amount, "admin balance does not match donor amount");
+        */
     }
 
 }

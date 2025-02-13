@@ -51,10 +51,10 @@ use dep::aztec::test::helpers::test_environment::TestEnvironment;
 #[test]
 unconstrained fn test_counter() {
     let mut env = TestEnvironment::new();
-    let owner = env.create_account();
-    let sender = env.create_account();
+    let owner = env.create_account(1);
+    let sender = env.create_account(2);
     let initial_counter = 3;
-    
+
     env.impersonate(owner);
     let initializer = Counter::interface().initialize(initial_counter, owner);
     let counter_contract = env.deploy_self("Counter").with_private_initializer(initializer);

@@ -69,7 +69,7 @@ use dep::aztec::oracle::{execution::get_block_number, storage::storage_read};
 
 unconstrained fn setup() -> (TestEnvironment, AztecAddress, AztecAddress) {
     let mut env = TestEnvironment::new();
-    let admin = env.create_account();
+    let admin = env.create_account(1);
     
     // setup EasyPrivateVoting
     let init: PublicVoidCallInterface<11> = EasyPrivateVoting::interface().constructor(admin);
@@ -83,7 +83,7 @@ unconstrained fn setup() -> (TestEnvironment, AztecAddress, AztecAddress) {
 unconstrained fn test_vote() {
     let (mut env, voting_address, _) = setup();
     
-    let voter = env.create_account();
+    let voter = env.create_account(2);
     let candidate = 1;
 
     // vote
@@ -91,10 +91,9 @@ unconstrained fn test_vote() {
     EasyPrivateVoting::at(voting_address).cast_vote(candidate).call(&mut env.private());
     
     // check storage
-    let block_number = get_block_number();
     let tally_slot = EasyPrivateVoting::storage_layout().tally.slot;
     let candidate_tally_slot = derive_storage_slot_in_map(tally_slot, candidate);
-    let vote_count: u32 = storage_read(voting_address, candidate_tally_slot, block_number);
+    let vote_count: u32 = storage_read(voting_address, candidate_tally_slot, get_block_number());
 
     assert(vote_count == 1);
 }
@@ -111,7 +110,7 @@ unconstrained fn test_end_vote() {
     assert(current_vote_ended == true, "Vote not ended as expected");
 
     // check that voting now fails
-    let user = env.create_account();
+    let user = env.create_account(3);
     env.impersonate(user);
     let cast_vote = EasyPrivateVoting::at(voting_address).end_vote();
     env.assert_private_call_fails(cast_vote);
@@ -120,7 +119,7 @@ unconstrained fn test_end_vote() {
 #[test(should_fail)]
 unconstrained fn test_no_double_voting() {
     let (mut env, voting_address, admin) = setup();
-    let user = env.create_account();
+    let user = env.create_account(4);
 
     env.impersonate(user);
     EasyPrivateVoting::at(voting_address).end_vote().call(&mut env.public());
