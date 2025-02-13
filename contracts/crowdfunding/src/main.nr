@@ -93,8 +93,6 @@ contract Crowdfunding {
         WithdrawalProcessed { amount, who: to }.emit(encode_event(&mut context));
     }
 
-
-
     use dep::aztec::test::helpers::test_environment::TestEnvironment;
 
     #[test]
@@ -109,7 +107,6 @@ contract Crowdfunding {
             admin, name, symbol, 18
         );
         let token_instance = env.deploy("./@token_contract", "Token").with_public_void_initializer(init_token);
-        /*
         let token_address = token_instance.to_address();
         // deploy crowdfunding
         let init_crowdfunding = Crowdfunding::interface().init(
@@ -118,17 +115,13 @@ contract Crowdfunding {
         let cf_instance = env.deploy_self("Crowdfunding").with_public_void_initializer(init_crowdfunding);
         let cf_address = cf_instance.to_address();
 
-        (env, token_address, cf_address, admin) */
-        /*
-        let (mut env, token, crowdfunding, admin) = setup();
-        let donor = env.create_account();
+        let donor = env.create_account(2);
 
         env.impersonate(admin);
-        Token::at(token).mint_to_public(donor, U128::from_integer(50)).call(&mut env.public());
+        Token::at(token_address).mint_to_public(donor, U128::from_integer(50)).call(&mut env.public());
 
         env.impersonate(donor);
-        Crowdfunding::at(crowdfunding).donate(U128::from_integer(25)).call(&mut env.private());
-        */
+        Crowdfunding::at(cf_address).donate(U128::from_integer(25)).call(&mut env.private());
     }
 
 }

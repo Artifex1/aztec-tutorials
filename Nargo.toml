@@ -6,8 +6,8 @@ members = [
     "contracts/private_voting"
 ]
 
-[dependencies]
-aztec = { git="https://github.com/AztecProtocol/aztec-packages/", tag="aztec-packages-v0.76.3", directory="noir-projects/aztec-nr/aztec" }
-value_note = { git="https://github.com/AztecProtocol/aztec-packages/", tag="aztec-packages-v0.76.3", directory="noir-projects/aztec-nr/value-note"}
-token = { git="https://github.com/AztecProtocol/aztec-packages/", tag="aztec-packages-v0.76.3", directory="noir-projects/noir-contracts/contracts/token_contract" }
-router = { git="https://github.com/AztecProtocol/aztec-packages/", tag="aztec-packages-v0.76.3", directory="noir-projects/noir-contracts/contracts/router_contract" }
+# [dependencies]
+# aztec = { git="https://github.com/AztecProtocol/aztec-packages/", tag="aztec-packages-v0.76.3", directory="noir-projects/aztec-nr/aztec" }
+# value_note = { git="https://github.com/AztecProtocol/aztec-packages/", tag="aztec-packages-v0.76.3", directory="noir-projects/aztec-nr/value-note"}
+# token = { git="https://github.com/AztecProtocol/aztec-packages/", tag="aztec-packages-v0.76.3", directory="noir-projects/noir-contracts/contracts/token_contract" }
+# router = { git="https://github.com/AztecProtocol/aztec-packages/", tag="aztec-packages-v0.76.3", directory="noir-projects/noir-contracts/contracts/router_contract" }

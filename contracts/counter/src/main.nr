@@ -54,7 +54,7 @@ unconstrained fn test_counter() {
     let owner = env.create_account();
     let sender = env.create_account();
     let initial_counter = 3;
-
+    
     env.impersonate(owner);
     let initializer = Counter::interface().initialize(initial_counter, owner);
     let counter_contract = env.deploy_self("Counter").with_private_initializer(initializer);

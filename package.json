@@ -20,8 +20,7 @@
     "compile": "aztec-nargo compile && yarn compile-deploy-artifacts && yarn copy-deploy-artifacts",
     "compile-deploy-artifacts": "cd ~/nargo/github.com/AztecProtocol/aztec-packages/aztec-packages-v0.76.3/noir-projects/noir-contracts && aztec-nargo compile --package token_contract",
     "copy-deploy-artifacts": "cp ~/nargo/github.com/AztecProtocol/aztec-packages/aztec-packages-v0.76.3/noir-projects/noir-contracts/target/token_contract-Token.json ./target/token_contract-Token.json",
-    "test crowdfunding": "aztec test --package crowdfunding",
-    "test": "NODE_OPTIONS='--import tsx --no-warnings' mocha './contracts/**/test/**/*.test.ts'"
+    "test-crowdfunding": "aztec test --package crowdfunding"
   },
   "license": "MIT"
 }
